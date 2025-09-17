@@ -1,0 +1,102 @@
+---
+import { planetProfiles } from "../../data/planets.js";
+
+export function getStaticPaths() {
+  return planetProfiles.map(planet => ({
+    params: { slug: planet.slug }
+  }));
+}
+
+const {slug} = Astro.params
+const planet = planetProfiles.find(p => p.slug === slug);
+if (!planet) throw new Error(`Planet not found: ${slug}`);
+---
+
+<style>
+  html{
+    background-color: black;
+  }
+
+  h1{
+    color: #e0a458;
+    text-align: center;
+  }
+  .planet-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.quarter {
+  background-color: #1b263b;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0a458;
+  color: #eaeaea;
+}
+
+.quarter img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e0a458;
+}
+
+.quarter h2 {
+  margin-bottom: 0.5rem;
+  color: #e0a458;
+  font-size: 1.2rem;
+}
+
+.quarter ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+}
+
+.quarter li {
+  margin-bottom: 0.5rem;
+  color: #eaeaea;
+}
+
+.stats-list {
+  list-style: none;
+  padding: 0;
+}
+
+.stats-list li {
+  margin-bottom: 0.5rem;
+  color: #eaeaea;
+}
+
+</style>
+
+<h1>{planet.title}</h1>
+
+<div class="planet-detail">
+  <div class="quarter">
+    <img src={planet.image} alt={planet.title} />
+  </div>
+
+  <div class="quarter">
+    <h2>Description</h2>
+    <p>{planet.longDescription}</p>
+  </div>
+
+  <div class="quarter">
+    <h2>Random Facts</h2>
+    <ul>
+      {planet.facts.map(fact => <li>{fact}</li>)}
+    </ul>
+  </div>
+
+  <div class="quarter">
+    <h2>Stats</h2>
+    <ul class="stats-list">
+      <li><strong>Distance from Sun:</strong> {planet.stats.distanceFromSun}</li>
+      <li><strong>Atmosphere:</strong> {planet.stats.atmosphere}</li>
+      <li><strong>Gravity:</strong> {planet.stats.gravity}</li>
+      <li><strong>Diameter:</strong> {planet.stats.diameter}</li>
+    </ul>
+  </div>
+</div>

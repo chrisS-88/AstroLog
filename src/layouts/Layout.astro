@@ -1,0 +1,26 @@
+---
+const { title = "Planet Profiles" } = Astro.props;
+---
+
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">AstroLog 🪐 </a></h1>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>Made with Astro · {new Date().getFullYear()}</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Card from "../components/Card.astro"
+import {planetProfiles} from "../data/planets.js"
+---
+
+<style>
+  .planet-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+</style>
+
+ <Layout title ="AstroLog">
+  <div class="planet-grid">
+    {planetProfiles.map(planet => (
+      <Card
+        title={planet.title}
+        description={planet.description}
+        image={planet.image}
+        slug={planet.slug}
+        />
+    ))}
+  </div>
+ </Layout>
+
